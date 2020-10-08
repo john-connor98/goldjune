@@ -1,3 +1,4 @@
+import numpy
 import requests
 from bs4 import BeautifulSoup
 import csv
@@ -12,8 +13,43 @@ def current_gold_price():
     price = int((s_price.split()[1]).replace(',',''))
     return price
 
-i=0
-while True:
-    cur_val = current_gold_price()
-    sleep(5)
-    print(cur_val)
+app = Flask(__name__)
+
+@app.route('/webhook', methods=['POST'])
+@cross_origin()
+def webhook():
+    req = request.get_json(silent=True, force=True)
+    res = manage_query(req)
+    res = json.dumps(res, indent=4)
+    r = make_response(res)
+    r.headers['Content-Type'] = 'application/json'
+    return r
+
+def manage_query(req):
+    cur_val = str(current_gold_price())
+    return {
+              "fulfillmentMessages": [
+                {
+                  "text": {
+                    "text":  [
+                         cur_val
+                    ]
+                    
+                  }
+                }
+              ]
+            }
+    # return {
+    #           "fulfillmentMessages": [
+    #             {
+    #               "text": {
+    #                 "text": [
+    #                   query
+    #                 ]
+    #               }
+    #             }
+    #           ]
+    #         }
+
+if __name__ == '__main__':
+    app.run()
