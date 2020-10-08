@@ -1,6 +1,5 @@
 numpy
 pandas
-time
 flask_cors
 flask-sqlalchemy
 Click==7.0
