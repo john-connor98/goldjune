@@ -28,13 +28,13 @@ def webhook():
     return r
 
 def manage_query(req):
-    cur_val = str(current_gold_price())
+#     cur_val = str(current_gold_price())
     return {
               "fulfillmentMessages": [
                 {
                   "text": {
                     "text":  [
-                         cur_val
+                         "cur_val"
                     ]
                     
                   }
