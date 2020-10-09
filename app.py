@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import csv
 import pandas as pd
 from time import sleep
+from flask import Flask
 
 def current_gold_price():
     r = requests.get('https://www.goodreturns.in/gold-rates/').text
