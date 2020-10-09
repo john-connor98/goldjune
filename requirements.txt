@@ -2,6 +2,7 @@ numpy
 pandas
 flask_cors
 flask-sqlalchemy
+requests==2.22.0
 Click==7.0
 Flask==1.1.1
 gunicorn==19.9.0
