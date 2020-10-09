@@ -10,7 +10,7 @@ from flask_cors import cross_origin
 
 def current_gold_price():
     r = requests.get('https://www.goodreturns.in/gold-rates/').text
-    soup = BeautifulSoup(r, 'lxml')
+    soup = BeautifulSoup(r, "html.parser")
     article = soup.find('div', id='current-price')
     s_price = article.strong.text
     price = int((s_price.split()[1]).replace(',',''))
