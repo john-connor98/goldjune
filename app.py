@@ -5,6 +5,7 @@ import csv
 import pandas as pd
 from time import sleep
 from flask import Flask
+from flask_cors import cross_origin
 
 def current_gold_price():
     r = requests.get('https://www.goodreturns.in/gold-rates/').text
