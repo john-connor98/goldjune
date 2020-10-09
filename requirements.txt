@@ -2,6 +2,7 @@ numpy
 pandas
 flask_cors
 flask-sqlalchemy
+bs4==0.0.1
 requests==2.22.0
 Click==7.0
 Flask==1.1.1
