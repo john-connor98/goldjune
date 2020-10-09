@@ -2,6 +2,7 @@ import numpy
 import requests
 from bs4 import BeautifulSoup
 import csv
+import json
 import pandas as pd
 from time import sleep
 from flask import Flask, request, make_response, render_template
