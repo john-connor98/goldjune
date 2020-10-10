@@ -32,6 +32,7 @@ def manage_query(req):
     answ = ""
     while i<5:
         cur_val = current_gold_price()
+        sleep(8)
         answ = f"""{answ}
         count :- {i} || price :- {cur_val}"""
         i+=1
