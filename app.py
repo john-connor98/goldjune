@@ -7,7 +7,7 @@ import pandas as pd
 from time import sleep
 from flask import Flask, request, make_response, render_template
 from flask_cors import cross_origin
-checkvar = "chetan"
+checkvar = 1
 def current_gold_price():
     r = requests.get('https://www.goodreturns.in/gold-rates/').text
     soup = BeautifulSoup(r, "html.parser")
@@ -29,7 +29,8 @@ def webhook():
 
 def manage_query(req):
     cur_val = current_gold_price()
-    answ = checkvar
+    answ = str(checkvar)
+    checkvar = checkvar + 1
 #     answ = f'count :- {i} || price :- {cur_val}'
     return {
               "fulfillmentMessages": [
