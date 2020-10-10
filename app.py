@@ -30,7 +30,7 @@ def webhook():
 
 def manage_query(req):
     cur_val = current_gold_price()
-    nnum+=1
+    global nnum += 1
     answ = f'count :- {nnum} || price :- {cur_val}'
     return {
               "fulfillmentMessages": [
