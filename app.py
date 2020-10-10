@@ -18,12 +18,12 @@ def current_gold_price():
 
 app = Flask(__name__)
 
-i = 1
-while i<5:
-    cur_val = str(current_gold_price())
-    sleep(5)
-    requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text={}".format(cur_val))
-    sleep(10)
-    i+=1
+# i = 1
+# while i<5:
+#     cur_val = str(current_gold_price())
+#     sleep(5)
+#     requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text={}".format(cur_val))
+#     sleep(10)
+#     i+=1
 if __name__ == '__main__':
     app.run()
