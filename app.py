@@ -17,7 +17,7 @@ def current_gold_price():
     return price
 
 app = Flask(__name__)
-
+nnum = 1
 @app.route('/webhook', methods=['POST'])
 @cross_origin()
 def webhook():
@@ -29,13 +29,15 @@ def webhook():
     return r
 
 def manage_query(req):
-    cur_val = str(current_gold_price())
+    cur_val = current_gold_price()
+    nnum+=1
+    answ = f'count :- {nnum} || price :- {cur_val}'
     return {
               "fulfillmentMessages": [
                 {
                   "text": {
                     "text":  [
-                         cur_val
+                         answ
                     ]
                     
                   }
