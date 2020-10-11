@@ -22,3 +22,4 @@ while True:
         start = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
         requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text={} :- {} || {}".format(str(i), str(prev), str(cur_val)))
     prev = cur_val
+    i+=1
