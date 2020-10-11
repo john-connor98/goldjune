@@ -4,9 +4,7 @@ from bs4 import BeautifulSoup
 import csv
 import json
 import pandas as pd
-import time
-from flask import Flask, request, make_response, render_template
-from flask_cors import cross_origin
+from time import gmtime, strftime, sleep
 
 def current_gold_price():
     r = requests.get('https://www.goodreturns.in/gold-rates/').text
@@ -16,18 +14,11 @@ def current_gold_price():
     price = int((s_price.split()[1]).replace(',',''))
     return price
 
-# app = Flask(__name__)
-start = 1
-cur_val = str(current_gold_price())
-start+=1
-requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text={} {}".format(cur_val, start))
-start+=1
-# i = 1
-# while i<5:
-#     cur_val = str(current_gold_price())
-#     sleep(5)
-#     requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text={}".format(cur_val))
-#     sleep(10)
-#     i+=1
-# if __name__ == '__main__':
-#     app.run()
+prev = 0
+while True:
+    cur_val = current_gold_price()
+    sleep(5)
+    if prev != cur_val:
+        start = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+        requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text={} {}".format(str(cur_val), str(start)))
+        prev = cur_val
