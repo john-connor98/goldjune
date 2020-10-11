@@ -17,7 +17,8 @@ def current_gold_price():
     return price
 
 app = Flask(__name__)
-
+cur_val = str(current_gold_price())
+requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text={}".format(cur_val))
 # i = 1
 # while i<5:
 #     cur_val = str(current_gold_price())
