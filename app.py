@@ -14,7 +14,7 @@ def current_gold_price():
     price = int((s_price.split()[1]).replace(',',''))
     return price
 
-def main():
+def app():
     for i in range(3):
         start = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
         cur_val = int(current_gold_price())
@@ -23,7 +23,7 @@ def main():
         sleep(5)
     
 if __name__ == "__main__":
-    main()
+    app()
 
 #     cur_val = int(current_gold_price())
 #     if prev != cur_val:
