@@ -13,7 +13,6 @@ def current_gold_price():
     s_price = article.strong.text
     price = int((s_price.split()[1]).replace(',',''))
     return price
-
 prev = 0
 i = 0
 while True:
