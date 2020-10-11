@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 import csv
 import json
 import pandas as pd
-from time import sleep
+import time
 from flask import Flask, request, make_response, render_template
 from flask_cors import cross_origin
 
@@ -17,9 +17,9 @@ def current_gold_price():
     return price
 
 # app = Flask(__name__)
-
+start = time.time()
 cur_val = str(current_gold_price())
-requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text={}".format(cur_val))
+requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text={} {}".format(cur_val, start))
 # i = 1
 # while i<5:
 #     cur_val = str(current_gold_price())
