@@ -20,5 +20,5 @@ while True:
     sleep(5)
     if prev != cur_val:
         start = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
-        requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text={} || {}".format(str(prev), str(cur_val)))
+        requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text={} || {}".format(type(prev), type(cur_val)))
         prev = cur_val
