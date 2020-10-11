@@ -13,7 +13,8 @@ def current_gold_price():
     s_price = article.strong.text
     price = int((s_price.split()[1]).replace(',',''))
     return price
-
+def app():
+    i = 1
 def main():
     for i in range(3):
         start = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
