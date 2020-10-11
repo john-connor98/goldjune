@@ -22,9 +22,10 @@ def main():
         requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text={} {} {} {}".format(i, str(cur_val), str(start), str(end)))
         sleep(5)
     
+
+main()
 # if __name__ == "__main__":
 #     main()
-main()
 
 #     cur_val = int(current_gold_price())
 #     if prev != cur_val:
