@@ -15,7 +15,7 @@ def current_gold_price():
     return price
 prev = 0
 i = 0
-while i<5:
+while i<10000000:
     cur_val = int(current_gold_price())
     if prev != cur_val:
         start = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
