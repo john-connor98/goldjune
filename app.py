@@ -26,5 +26,5 @@ requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzL
 #     requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text={}".format(cur_val))
 #     sleep(10)
 #     i+=1
-if __name__ == '__main__':
-    app.run()
+# if __name__ == '__main__':
+#     app.run()
