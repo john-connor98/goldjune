@@ -5,6 +5,7 @@ import csv
 import json
 import pandas as pd
 from time import gmtime, strftime, sleep
+import schedule
 
 def current_gold_price():
     r = requests.get('https://www.goodreturns.in/gold-rates/').text
@@ -24,8 +25,8 @@ def main():
     schedule.every(10).minutes.do(job)
     
     while True:
-    schedule.run_pending()
-    time.sleep(1)
+        schedule.run_pending()
+        sleep(1)
     
 if __name__ == "__main__":
     main()
