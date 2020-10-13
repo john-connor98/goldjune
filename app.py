@@ -26,7 +26,6 @@ sched = BlockingScheduler()
 @sched.scheduled_job('interval', minutes=2)
 def timed_job():
     cur_val = int(current_gold_price())
-    requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text=Price :- prev = {}: curr = {}".format(str(prev), str(cur_val)))
-    prev+=1 
+    requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text=Price :- prev = {}: curr = {}".format(str(prev), str(cur_val))) 
 
 sched.start()
