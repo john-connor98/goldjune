@@ -16,16 +16,14 @@ def current_gold_price():
     price = int((s_price.split()[1]).replace(',',''))
     return price
 
-# def job():
-#     start = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
-#     cur_val = int(current_gold_price())
-#     end = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
-#     requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text={}| {}| {}| {}".format(i, str(cur_val), str(start), str(end)))
+def job():
+    cur_val = int(current_gold_price())
+    requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text=Price :- {}".format(str(cur_val)))
         
 sched = BlockingScheduler()
 
-@sched.scheduled_job('interval', minutes=3)
+@sched.scheduled_job('interval', minutes=2)
 def timed_job():
-    requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text=chetan")
+    job()
 
 sched.start()
