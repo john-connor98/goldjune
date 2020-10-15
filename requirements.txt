@@ -6,6 +6,7 @@ bs4==0.0.1
 requests==2.22.0
 APScheduler==3.0.0
 schedule==0.6.0
+psycopg2==2.8.6
 Click==7.0
 Flask==1.1.1
 gunicorn==19.9.0
