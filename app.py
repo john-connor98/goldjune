@@ -27,7 +27,7 @@ def fetchprice():
     return lastprice  
 
 def updateprice(curr_price):
-    cursor.execute("update goldprice set price = (%s) where price>=0", (curr_price))
+    cursor.execute("update goldprice set price = (%s) where price>=0", [curr_price])
     conn.commit()   
     
 # def job():
