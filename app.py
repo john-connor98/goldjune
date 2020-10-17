@@ -43,10 +43,10 @@ def extract_price(driver):
         
 sched = BlockingScheduler()
 
-@sched.scheduled_job('interval', minutes=2)
+@sched.scheduled_job('interval', minutes=1)
 def timed_job():
     url = "https://paytm.com/digitalgold"
-    driver = webdriver.Chrome(r'chromedriver.exe')
+    driver = webdriver.Chrome('/app/.chromedriver.exe')
     driver.get(url)
     time.sleep(3)
     cur_val = extract_price(driver)
