@@ -67,7 +67,7 @@ def timed_job():
     
     if buy_price != last_buy_price or sell_price != last_sell_price:
         requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text=buy = {} : sell = {}".format(str(buy_price), str(sell_price))) 
-#         updateprice(buy_price, sell_price)
+        updateprice(buy_price, sell_price)
     driver.close()
     
 sched.start()
