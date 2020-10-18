@@ -31,15 +31,15 @@ def extract_price(driver):
 #     price = int((s_price.split()[1]).replace(',',''))
 #     return price
 
-# def fetchprice():
-#     cursor.execute("select buy, sell from goldprice")
-#     data = cursor.fetchone()
-#     last_buy_price = data[0]
-#     last_sell_price = data[1]
-#     return last_buy_price, last_sell_price  
+def fetchprice():
+    cursor.execute("select *from goldprice ORDER BY id DESC LIMIT 1")
+    data = cursor.fetchone()
+    last_buy_price = data[1]
+    last_sell_price = data[2]
+    return last_buy_price, last_sell_price  
 
 def updateprice(buy_price, sell_price, localtime):
-    cursor.execute("update goldprice set todtime = (%s), buy = (%s), sell = (%s) where buy>=0", [localtime, buy_price, sell_price])
+    cursor.execute("insert into goldprice (localtime, buy_price, sell_price)")
     conn.commit()   
         
 sched = BlockingScheduler()
@@ -63,9 +63,9 @@ def timed_job():
     sell_price = extract_price(driver)
     time.sleep(2)
     localtime = time.asctime( time.localtime(time.time()) )
+    last_buy_price, last_sell_price = fetchprice()
     updateprice(buy_price, sell_price, localtime)
-    requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text=buy_price = {} : sell_price = {}".format(str(buy_price), str(sell_price))) 
-#     last_buy_price, last_sell_price = fetchprice()
+    requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text=buy_price = {} : sell_price = {}".format(str(last_buy_price), str(last_sell_price))) 
     
 #     if buy_val != last_buy_price or sell_price != last_sell_price:
 #         requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text=buy_price = {} : sell_price = {}".format(str(buy_price), str(sell_price))) 
