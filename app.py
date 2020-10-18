@@ -32,7 +32,7 @@ def extract_price(driver):
 #     return price
 
 def fetchprice():
-    cursor.execute("select *from goldprice ORDER BY id DESC LIMIT 1")
+    cursor.execute("select *from goldprice ORDER BY index DESC LIMIT 1")
     data = cursor.fetchone()
     last_buy_price = data[1]
     last_sell_price = data[2]
