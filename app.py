@@ -56,7 +56,7 @@ def timed_job():
     driver.get(url)
     time.sleep(3)
     cur_val = extract_price(driver)
-    buy_price = price + ((3*price)/100)
+    buy_price = cur_val + ((3*cur_val)/100)
     
     element = driver.find_element_by_link_text("Sell")
     element.click()
