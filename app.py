@@ -2,12 +2,14 @@ import os
 import csv
 import json
 import time
+import pytz
 import numpy
 import requests
 import schedule
 import psycopg2
-import pandas as pd
+import pandas as pd 
 from bs4 import BeautifulSoup
+from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from apscheduler.schedulers.blocking import BlockingScheduler
@@ -26,13 +28,6 @@ def extract_price(driver):
     except AttributeError:
         price = 0
     return price
-# def current_gold_price():
-#     r = requests.get('https://www.goodreturns.in/gold-rates/').text
-#     soup = BeautifulSoup(r, "html.parser")
-#     article = soup.find('div', id='current-price')
-#     s_price = article.strong.text
-#     price = int((s_price.split()[1]).replace(',',''))
-#     return price
 
 def fetchprice():
     cursor.execute("select *from goldprice ORDER BY index DESC LIMIT 1")
@@ -41,8 +36,11 @@ def fetchprice():
     last_sell_price = data[2]
     return (last_buy_price, last_sell_price)  
 
-def updateprice(buy_price, sell_price, localtime):
-    cursor.execute("insert into goldprice values(%s, %s, %s)",[localtime, buy_price, sell_price])
+def updateprice(buy_price, sell_price):
+    IST = pytz.timezone('Asia/Kolkata')
+    datetime_ist = datetime.now(IST)
+    date = datetime_ist.strftime('%a %b %d %Y time - %H:%M:%S ')
+    cursor.execute("insert into goldprice values(%s, %s, %s)",[date, buy_price, sell_price])
     conn.commit()   
         
 sched = BlockingScheduler()
@@ -59,20 +57,26 @@ def timed_job():
     driver.get(url)
     time.sleep(3)
     cur_val = extract_price(driver)
-    buy_price = cur_val + ((3*cur_val)/100)
+    buy_price = round(cur_val + ((3*cur_val)/100),2)
     
     element = driver.find_element_by_link_text("Sell")
     element.click()
     sell_price = extract_price(driver)
     time.sleep(2)
-    localtime = time.asctime( time.localtime(time.time()) )
     last_buy_price, last_sell_price = fetchprice()
-    updateprice(buy_price, sell_price, localtime)
-    requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text=buy_price = {} : sell_price = {}".format(str(last_buy_price), str(last_sell_price))) 
     
-#     if buy_val != last_buy_price or sell_price != last_sell_price:
-#         requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text=buy_price = {} : sell_price = {}".format(str(buy_price), str(sell_price))) 
+    if buy_price != last_buy_price or sell_price != last_sell_price:
+        requests.get("https://api.telegram.org/bot1340927566:AAHzy54vtOJcqB2OKO5Qgo5vHzLxvNYdkRY/sendMessage?chat_id=985062789&text=buy = {} : sell = {}".format(str(buy_price), str(sell_price))) 
 #         updateprice(buy_price, sell_price)
     driver.close()
     
 sched.start()
+
+# def current_gold_price():
+#     r = requests.get('https://www.goodreturns.in/gold-rates/').text
+#     soup = BeautifulSoup(r, "html.parser")
+#     article = soup.find('div', id='current-price')
+#     s_price = article.strong.text
+#     price = int((s_price.split()[1]).replace(',',''))
+#     return price
+
