@@ -1,7 +1,8 @@
-import numpy
+import os
 import csv
 import json
 import time
+import numpy
 import requests
 import schedule
 import psycopg2
@@ -45,8 +46,13 @@ sched = BlockingScheduler()
 
 @sched.scheduled_job('interval', minutes=1)
 def timed_job():
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument('--no-sandbox')
+    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     url = "https://paytm.com/digitalgold"
-    driver = webdriver.Chrome('chromedriver.exe')
     driver.get(url)
     time.sleep(3)
     cur_val = extract_price(driver)
