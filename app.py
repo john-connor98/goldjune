@@ -18,10 +18,13 @@ cursor = conn.cursor()
 
 def extract_price(driver):
     html = driver.page_source
-    soup = BeautifulSoup(html, "html.parser")
-    all_divs = soup.find('div', {'class' : '_1cMg'})
-    price_str = all_divs.text
-    price = float((price_str.split('₹'))[1].split('/')[0])
+    try:
+        soup = BeautifulSoup(html, "html.parser")
+        all_divs = soup.find('div', {'class' : '_1cMg'})
+        price_str = all_divs.text
+        price = float((price_str.split('₹'))[1].split('/')[0])
+    except AttributeError:
+        price = 0
     return price
 # def current_gold_price():
 #     r = requests.get('https://www.goodreturns.in/gold-rates/').text
@@ -36,7 +39,7 @@ def fetchprice():
     data = cursor.fetchone()
     last_buy_price = data[1]
     last_sell_price = data[2]
-    return last_buy_price, last_sell_price  
+    return (last_buy_price, last_sell_price)  
 
 def updateprice(buy_price, sell_price, localtime):
     cursor.execute("insert into goldprice (localtime, buy_price, sell_price)")
