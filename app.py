@@ -39,7 +39,7 @@ def extract_price(driver):
 #     return last_buy_price, last_sell_price  
 
 def updateprice(buy_price, sell_price, localtime):
-    cursor.execute("update goldprice set time = (%s), buy = (%s), sell = (%s) where buy>=0", [localtime, buy_price, sell_price])
+    cursor.execute("update goldprice set todtime = (%s), buy = (%s), sell = (%s) where buy>=0", [localtime, buy_price, sell_price])
     conn.commit()   
         
 sched = BlockingScheduler()
