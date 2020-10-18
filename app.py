@@ -42,7 +42,7 @@ def fetchprice():
     return (last_buy_price, last_sell_price)  
 
 def updateprice(buy_price, sell_price, localtime):
-    cursor.execute("insert into goldprice (localtime, buy_price, sell_price)")
+    cursor.execute("insert into goldprice values(localtime, buy_price, sell_price)")
     conn.commit()   
         
 sched = BlockingScheduler()
