@@ -40,7 +40,7 @@ def updateprice(buy_price, sell_price):
     IST = pytz.timezone('Asia/Kolkata')
     datetime_ist = datetime.now(IST)
     date = datetime_ist.strftime('%a %b %d %Y time - %H:%M:%S ')
-    cursor.execute("insert into goldprice values(%s, %s, %s)",[date, buy_price, sell_price])
+    cursor.execute("update goldprice set todtime = %s, buy = %s, sell = %s where index = (select max(index) from goldprice) )",[date, buy_price, sell_price])
     conn.commit()   
         
 sched = BlockingScheduler()
