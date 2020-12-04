@@ -30,10 +30,16 @@ def extract_price(driver):
     return price
 
 def fetchprice():
-    cursor.execute("select *from goldprice ORDER BY index DESC LIMIT 1")
-    data = cursor.fetchone()
-    last_buy_price = data[1]
-    last_sell_price = data[2]
+    last_buy_price = 0
+    last_sell_price = 0
+    try:
+        cursor.execute("select *from goldprice ORDER BY index DESC LIMIT 1")
+        data = cursor.fetchone()
+        last_buy_price = data[1]
+        last_sell_price = data[2]
+    except:
+        last_buy_price = 0
+        last_sell_price = 0
     return (last_buy_price, last_sell_price)  
 
 def updateprice(buy_price, sell_price):
